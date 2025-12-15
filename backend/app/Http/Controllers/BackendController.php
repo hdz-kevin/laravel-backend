@@ -14,12 +14,18 @@ class BackendController extends Controller
         3 => ['name' => 'Juan', 'age' => 35],
     ];
 
+    public function test() {
+        return response()->json([
+            'success' => true,
+            'message' => 'GET OK'
+        ]);
+    }
+
     public function getAll() {
         return Response::json($this->users);
     }
 
     public function get($id) {
-
         if (!isset($this->users[$id])) {
             return response()->json(
                 [
@@ -33,10 +39,21 @@ class BackendController extends Controller
         return response()->json($this->users[$id]);
     }
 
-    public function test() {
-        return response()->json([
-            'success' => true,
-            'message' => 'GET OK'
-        ]);
+    public function create(Request $request) {
+        $user = [
+            'id' => count($this->users) + 1,
+            'name' => $request->input('name'),
+            'age' => $request->input('age'),
+        ];
+
+        $this->users[$user['id']] = $user;
+
+        return response()->json(
+            [
+                'success' => true,
+                'user' => $user
+            ],
+            HttpFoundationResponse::HTTP_CREATED,
+        );
     }
 }

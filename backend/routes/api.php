@@ -10,3 +10,4 @@ Route::get('/test', function () {
 Route::get('/backend', [BackendController::class, 'test']);
 Route::get('/get', [BackendController::class, 'getAll']);
 Route::get('/get/{id}', [BackendController::class, 'get']);
+Route::post('/create', [BackendController::class, 'create']);
