@@ -7,6 +7,7 @@ Route::get('/test', function () {
     return 'GET /test OK';
 });
 
-Route::get('/backend', [BackendController::class, 'get']);
+Route::get('/backend', [BackendController::class, 'test']);
+Route::get('/get', [BackendController::class, 'getAll']);
 // ? id is optional
-Route::get('/param/{id?}', [BackendController::class, 'param']);
+Route::get('/get/{id?}', [BackendController::class, 'get']);
