@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class BackendController extends Controller
 {
@@ -18,14 +19,18 @@ class BackendController extends Controller
     }
 
     public function get($id) {
-        if (isset($this->users[$id])) {
-            return response()->json($this->users[$id]);
+
+        if (!isset($this->users[$id])) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'User not found'
+                ],
+                HttpFoundationResponse::HTTP_NOT_FOUND,
+            );
         }
 
-        return response()->json(
-            ['message' => 'User not found'],
-            404
-        );
+        return response()->json($this->users[$id]);
     }
 
     public function test() {
