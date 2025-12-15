@@ -8,3 +8,5 @@ Route::get('/test', function () {
 });
 
 Route::get('/backend', [BackendController::class, 'get']);
+// ? id is optional
+Route::get('/param/{id?}', [BackendController::class, 'param']);
