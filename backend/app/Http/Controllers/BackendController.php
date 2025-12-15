@@ -17,20 +17,21 @@ class BackendController extends Controller
         return Response::json($this->users);
     }
 
+    public function get($id) {
+        if (isset($this->users[$id])) {
+            return response()->json($this->users[$id]);
+        }
+
+        return response()->json(
+            ['message' => 'User not found'],
+            404
+        );
+    }
+
     public function test() {
         return response()->json([
             'success' => true,
             'message' => 'GET OK'
-        ]);
-    }
-
-    public function get(int $id = -1) {
-        // if id param is not received, $id will be -1
-
-        return response()->json([
-            'success' => true,
-            'message' => 'GET OK',
-            'id' => $id
         ]);
     }
 }

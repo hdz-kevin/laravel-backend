@@ -9,5 +9,4 @@ Route::get('/test', function () {
 
 Route::get('/backend', [BackendController::class, 'test']);
 Route::get('/get', [BackendController::class, 'getAll']);
-// ? id is optional
-Route::get('/get/{id?}', [BackendController::class, 'get']);
+Route::get('/get/{id}', [BackendController::class, 'get']);
