@@ -84,4 +84,29 @@ class BackendController extends Controller
             HttpFoundationResponse::HTTP_OK
         );
     }
+
+    public function delete(int $id)
+    {
+        if (!isset($this->users[$id])) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'User not found'
+                ],
+                HttpFoundationResponse::HTTP_NOT_FOUND,
+            );
+        }
+
+        $this->users = array_filter(
+            $this->users,
+            fn (int $userId) => $userId != $id,
+            ARRAY_FILTER_USE_KEY,
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User deleted',
+            'users' => $this->users
+        ]);
+    }
 }
