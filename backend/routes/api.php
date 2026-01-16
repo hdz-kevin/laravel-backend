@@ -16,4 +16,5 @@ Route::put('/update/{id}', [BackendController::class, 'update']);
 Route::delete('/delete/{id}', [BackendController::class, 'delete']);
 
 // Rutas para probrar Queries con Eloquent
-Route::get('/queries', [QueriesController::class, 'get']);
+Route::get('/querie', [QueriesController::class, 'get']);
+Route::get('/querie/{id}', [QueriesController::class, 'getById']);

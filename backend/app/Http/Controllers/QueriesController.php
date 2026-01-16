@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class QueriesController extends Controller
 {
@@ -12,5 +13,16 @@ class QueriesController extends Controller
         $products = Product::all();
 
         return response()->json($products);
+    }
+
+    public function getById(int $id)
+    {
+        $product = Product::find($id);
+
+        if (! $product) {
+            return response()->json(['message' => 'Product not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        return response()->json($product);
     }
 }
