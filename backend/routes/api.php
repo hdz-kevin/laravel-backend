@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BackendController;
+use App\Http\Controllers\QueriesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
@@ -13,3 +14,6 @@ Route::get('/get/{id}', [BackendController::class, 'get']);
 Route::post('/create', [BackendController::class, 'create']);
 Route::put('/update/{id}', [BackendController::class, 'update']);
 Route::delete('/delete/{id}', [BackendController::class, 'delete']);
+
+// Rutas para probrar Queries con Eloquent
+Route::get('/queries', [QueriesController::class, 'get']);
