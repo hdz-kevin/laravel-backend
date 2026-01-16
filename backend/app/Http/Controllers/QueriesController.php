@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class QueriesController extends Controller
 {
+    /**
+     * Get all products
+     */
     public function get()
     {
         $products = Product::all();
@@ -15,6 +18,9 @@ class QueriesController extends Controller
         return response()->json($products);
     }
 
+    /**
+     * Get a product by id
+     */
     public function getById(int $id)
     {
         $product = Product::find($id);
@@ -26,6 +32,9 @@ class QueriesController extends Controller
         return response()->json($product);
     }
 
+    /**
+     * Get only the names of all products
+     */
     public function getNames()
     {
         $products = Product::select('id', 'name')
