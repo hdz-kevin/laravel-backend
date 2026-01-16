@@ -18,3 +18,4 @@ Route::delete('/delete/{id}', [BackendController::class, 'delete']);
 // Rutas para probrar Queries con Eloquent
 Route::get('/querie', [QueriesController::class, 'get']);
 Route::get('/querie/{id}', [QueriesController::class, 'getById']);
+Route::get('/querie/method/names', [QueriesController::class, 'getNames']);
