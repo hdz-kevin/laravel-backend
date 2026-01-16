@@ -43,4 +43,19 @@ class QueriesController extends Controller
 
         return response()->json($products);
     }
+
+    /**
+     * Filter products by name and price, chaining multiple eloquent methods
+     */
+    public function searchName(string $name, float $price)
+    {
+        $products = Product::where('name', $name)
+                           // and where (debe cumplir las condiciones de ambos where)
+                           ->where('price', '>', $price)
+                           ->select('id', 'name', 'price')
+                           ->orderBy('id', 'desc')
+                           ->get();
+
+        return response()->json($products);
+    }
 }
