@@ -65,6 +65,11 @@ class QueriesController extends Controller
     public function searchString(string $value)
     {
         $products = Product::where('description', 'like', "%{$value}%")
+                           ->orWhere('name', 'like', "%{$value}%")
+                           ->get();
+
+        // Same optimized
+        $products = Product::whereAny(['name', 'description'], 'like', "%{$value}%")
                            ->get();
 
         return response()->json($products);
