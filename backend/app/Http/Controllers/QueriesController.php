@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -71,6 +72,32 @@ class QueriesController extends Controller
         // Same optimized
         $products = Product::whereAny(['name', 'description'], 'like', "%{$value}%")
                            ->get();
+
+        return response()->json($products);
+    }
+
+    /**
+     * Dinamic advanced search
+     */
+    public function advancedSearch(Request $request)
+    {
+        $products = Product::where(function (Builder $query) use ($request) {
+            $name = $request->input('name');
+            if ($name) {
+                $query->where('name', 'like', "%{$name}%");
+            }
+
+            $description = $request->input('description');
+            if ($description) {
+                $query->where('description', 'like', "%{$description}%");
+            }
+
+            $price = $request->input('price');
+            if ($price) {
+                $query->where('price', '>=', $price);
+            }
+        })
+        ->get();
 
         return response()->json($products);
     }
