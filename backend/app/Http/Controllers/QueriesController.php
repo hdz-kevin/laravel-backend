@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -98,6 +99,18 @@ class QueriesController extends Controller
             }
         })
         ->get();
+
+        return response()->json($products);
+    }
+
+    /**
+     * Join two o more tables
+     */
+    public function join()
+    {
+        $products = Product::join('categories', 'products.category_id', '=', 'categories.id')
+                           ->select('products.*', 'categories.name as category')
+                           ->get();
 
         return response()->json($products);
     }

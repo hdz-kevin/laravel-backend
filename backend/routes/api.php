@@ -22,3 +22,4 @@ Route::get('/querie/method/names', [QueriesController::class, 'getNames']);
 Route::get('/querie/method/search/{name}/{price}', [QueriesController::class, 'searchName']);
 Route::get('/querie/method/searchString/{value}', [QueriesController::class, 'searchString']);
 Route::post('/querie/method/advancedSearch', [QueriesController::class, 'advancedSearch']);
+Route::get('/querie/method/join', [QueriesController::class, 'join']);
