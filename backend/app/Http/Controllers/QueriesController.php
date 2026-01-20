@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class QueriesController extends Controller
@@ -113,5 +114,18 @@ class QueriesController extends Controller
                            ->get();
 
         return response()->json($products);
+    }
+
+    /**
+     * Group categories and get the number of products for each category
+     */
+    public function groupBy()
+    {
+        $result = Product::join('categories', 'products.category_id', '=', 'categories.id')
+                         ->groupBy('categories.id', 'categories.name')
+                         ->select('categories.id', 'categories.name', DB::raw('COUNT(products.id) as total'))
+                         ->get();
+
+        return response()->json($result);
     }
 }
